@@ -34,15 +34,6 @@ export function Header(props: HeaderProps) {
           Sign up
         </Button>
       </Toolbar>
-      {/* <Toolbar
-        component="nav"
-        variant="dense"
-        sx={{ justifyContent: 'space-between', overflowX: 'auto' }}
-      >
-        {sections.map((section, idx) => (
-          <Link key={idx} to={section.url}>{section.title}</Link>
-        ))}
-      </Toolbar> */}
     </React.Fragment>
   );
 }

@@ -3,9 +3,9 @@ import { IHomeLoader } from "~/interface/IProps";
 import { Grid } from "@mui/material";
 import Footer from "~/components/common/layouts/Footer"
 import Header from "~/components/common/layouts/Header"
-import MainFeaturedPost from "~/components/MainFeaturedPost";
-import FeaturedPost from "~/components/FeaturedPost";
-import Sidebar from "~/components/common/layouts/Sidebar";
+// import MainFeaturedPost from "~/components/MainFeaturedPost";
+// import FeaturedPost from "~/components/FeaturedPost";
+// import Sidebar from "~/components/common/layouts/Sidebar";
 
 export const loader = async () => {
     return json(
@@ -71,20 +71,20 @@ export const DefaultLayout = () => {
     const location = useLocation()
     return (
         <>
-            <Header title='Remix Blog' sections={sections} />
+            <Header title='리니지2m 시세표' sections={sections} />
             <main>
-                <MainFeaturedPost post={mainFeaturedPost} />
+                {/* <MainFeaturedPost post={mainFeaturedPost} />
                 {location.pathname === '/' && <Grid container spacing={4}>
                     {featuredPosts.map((post) => (
                         <FeaturedPost key={post.title} post={post} />
                     ))}
-                </Grid>}
-                <Grid container spacing={5} sx={{ mt: 3 }}>
-                    <Sidebar
+                </Grid>} */}
+                <Grid container sx={{ mt: 3 }}>
+                    {/* <Sidebar
                         title={sidebar.title}
                         description={sidebar.description}
                         archives={sidebar.archives}
-                    />
+                    /> */}
                     <Outlet />
                 </Grid>
             </main>

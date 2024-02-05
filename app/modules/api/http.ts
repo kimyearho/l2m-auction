@@ -12,14 +12,10 @@ export interface ErrorResponse {
  };
 }
 
-interface CustomResponse<T = any> extends ErrorResponse {
- data: T;
-}
-
 export const http = axios.create({
  baseURL: defaultEnv.API_URL,
  timeout: 3000,
- withCredentials: true,
+
 })
 
 http.interceptors.request.use((config) => {
@@ -35,7 +31,7 @@ http.interceptors.request.use((config) => {
 http.interceptors.response.use(
  (response) => {
   console.log('Response config >>>', response)
-  return response.data;
+  return response;
  },
  async (error: AxiosError<ErrorResponse>) => {
   if (!error.response) return error;

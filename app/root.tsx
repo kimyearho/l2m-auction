@@ -17,15 +17,21 @@ import { Container, unstable_useEnhancedEffect as useEnhancedEffect } from '@mui
 import { CoError404, CoError500, CoErrorInspection } from '@/components';
 import { SWRConfig } from 'swr';
 import { http } from "~/modules/api/http";
+import { LinksFunction } from '@remix-run/node';
+import itemInfoStyles from '~/styles/itemInfo.css'
 
 interface DocumentProps {
   children: React.ReactNode;
   title?: string;
 }
 
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: itemInfoStyles },
+];
+
 //* 전역 Axios fetcher
 // https://swr.vercel.app/ko/docs/data-fetching
-const fetcher = (url: any) => http.get(url).then(res => res.data)
+const fetcher = (url: any) => http.get(decodeURIComponent(url)).then(res => res.data)
 
 //* 전역 클라이언트에서 환경변수를 사용하기위해서 설정.
 // https://sergiodxa.com/tutorials/use-process-env-client-side-with-remix
