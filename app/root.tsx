@@ -12,13 +12,13 @@ import {
   useLoaderData,
 } from '@remix-run/react';
 import ClientStyleContext from './ClientStyleContext';
+import itemInfoStyles from '~/styles/index.css'
 import { withEmotionCache } from '@emotion/react';
 import { Container, unstable_useEnhancedEffect as useEnhancedEffect } from '@mui/material';
 import { CoError404, CoError500, CoErrorInspection } from '@/components';
 import { SWRConfig } from 'swr';
-import { http } from "~/modules/api/http";
+import { http } from "@/http";
 import { LinksFunction } from '@remix-run/node';
-import itemInfoStyles from '~/styles/itemInfo.css'
 
 interface DocumentProps {
   children: React.ReactNode;

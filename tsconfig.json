@@ -16,7 +16,9 @@
     "paths": {
       "~/*": ["./app/*"],
       "@/components": ["./app/components"],
-      "@/interface": ["./app/interface"]
+      "@/interface": ["./app/interface"],
+      "@/config": ["./app/modules/config/*"],
+      "@/http": ["./app/modules/api/http"],
     },
 
     // Remix takes care of building everything in `remix build`.
