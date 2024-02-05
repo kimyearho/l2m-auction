@@ -1,0 +1,25 @@
+{
+  "include": ["app/types/remix.env.d.ts", "app/types/global.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "module": "ES6",
+    "strict": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./app/*"],
+      "@/components": ["./app/components"],
+      "@/interface": ["./app/interface"]
+    },
+
+    // Remix takes care of building everything in `remix build`.
+    "noEmit": true
+  },
+}
