@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-const Home = () => {
+const ItemAuctionList = () => {
   const query = new URLSearchParams()
   query.append('search_keyword', '칼라드볼그')
   query.append('sale', 'true')
@@ -60,4 +60,4 @@ const Home = () => {
   return <DataGrid rows={getRows()} columns={columns} />
 }
 
-export default Home
+export default ItemAuctionList

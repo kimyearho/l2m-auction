@@ -8,7 +8,7 @@ export default {
   routes(defineRoutes) {
     return defineRoutes((route) => {
       route("/", "components/common/layouts/DefaultLayout.tsx", () => {
-        route("", "router/home/Home.tsx", { index: true });
+        route("", "router/itemList/ItemAuctionList.tsx", { index: true });
         route("about", "router/about/index.tsx");
         //* '/about/post/?'는 '/about'의 레이아웃을 적용받지않음.
         route("about/post/:id", "router/about/About.tsx");
