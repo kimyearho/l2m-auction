@@ -5,6 +5,12 @@ export default {
   // assetsBuildDirectory: "public/build",
   // publicPath: "/build/",
   serverBuildPath: "build/index.js",
+  browserNodeBuiltinsPolyfill: {
+    modules: {
+      crypto: true, 
+      https: true 
+    }
+  },
   routes(defineRoutes) {
     return defineRoutes((route) => {
       route("/", "components/common/layouts/DefaultLayout.tsx", () => {
