@@ -1,6 +1,4 @@
 import { json, type MetaFunction } from "@remix-run/node";
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { IITem } from "@/interface";
 import { CoItemName } from "@/components";
 import { http } from "@/http";
 import { useLoaderData } from "@remix-run/react";
@@ -11,16 +9,6 @@ import {
   useMaterialReactTable,
   type MRT_ColumnDef,
 } from 'material-react-table';
-
-type Person = {
-  name: {
-    firstName: string;
-    lastName: string;
-  };
-  address: string;
-  city: string;
-  state: string;
-};
 
 export const meta: MetaFunction = () => {
   return [
