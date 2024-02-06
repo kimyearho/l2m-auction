@@ -79,7 +79,7 @@ export const DefaultLayout = () => {
                         <FeaturedPost key={post.title} post={post} />
                     ))}
                 </Grid>} */}
-                <Grid container sx={{ mt: 3 }}>
+                <Grid sx={{ mt: 3 }}>
                     {/* <Sidebar
                         title={sidebar.title}
                         description={sidebar.description}

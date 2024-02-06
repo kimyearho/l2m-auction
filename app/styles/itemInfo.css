@@ -13,3 +13,28 @@
 .grade-6 {
  color: #e9a43a;
 }
+
+.ico-price {
+ display: inline-block;
+ content: "";
+ vertical-align: middle;
+ width: 16px;
+ min-width: 16px;
+ height: 15px;
+ font-weight: 400;
+ margin: -1px 4px 0 0;
+ background-image: url("../assets/itemUnit.svg");
+ background-size: 16px 15px;
+}
+
+.ico-world {
+ display: inline-block;
+ content: "";
+ vertical-align: middle;
+ width: 16px;
+ min-width: 16px;
+ height: 16px;
+ margin: -1px 4px 0 0;
+ background-size: 16px 16px;
+ background-image: url("../assets//itemWon.svg");
+}

@@ -15,6 +15,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
+      "@/public/*": ["./public/*"],
       "@/components": ["./app/components"],
       "@/interface": ["./app/interface"],
       "@/config": ["./app/modules/config/*"],

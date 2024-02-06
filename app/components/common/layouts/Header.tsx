@@ -20,7 +20,7 @@ export function Header(props: HeaderProps) {
         <Typography
           component="h2"
           variant="h5"
-          color="inherit"
+          color="white"
           align="center"
           noWrap
           sx={{ flex: 1 }}
