@@ -1,14 +1,18 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { produce } from 'immer'
 import {
   MaterialReactTable,
   useMaterialReactTable,
   type MRT_ColumnDef,
 } from 'material-react-table'
-
 import { CoItemName } from '@/components'
 
 const ItemDataGrid = (props: any) => {
-  const { data, pageInfo } = props
+  const { data, pageInfo, pageClickEvent } = props
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 30,
+  })
 
   const columns = useMemo<MRT_ColumnDef<any>[]>(
     () => [
@@ -79,10 +83,10 @@ const ItemDataGrid = (props: any) => {
     enableTopToolbar: false,
     initialState: {
       density: 'compact',
-      pagination: {
-        pageIndex: 0,
-        pageSize: 30,
-      },
+      pagination: pagination,
+    },
+    state: {
+      pagination: pagination,
     },
     rowCount: pageInfo?.total || 1,
     paginationDisplayMode: 'pages',
@@ -91,6 +95,13 @@ const ItemDataGrid = (props: any) => {
       shape: 'rounded',
       variant: 'outlined',
       showRowsPerPage: false,
+    },
+    manualPagination: true,
+    onPaginationChange: (updater) => {
+      if (typeof updater !== 'function') return
+      const newPageInfo = updater(table.getState().pagination)
+      setPagination(newPageInfo)
+      pageClickEvent(newPageInfo)
     },
   })
 

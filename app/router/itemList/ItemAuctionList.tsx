@@ -3,10 +3,11 @@ import { http } from '@/http'
 import {
   Form,
   useLoaderData,
-  useLocation,
   useSearchParams,
+  useSubmit,
 } from '@remix-run/react'
 import { CoItemDataGrid } from '@/components'
+import { IPagination } from '@/interface'
 import { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 
@@ -20,13 +21,15 @@ export const meta: MetaFunction = () => {
 export const loader = async ({ request }: ActionFunctionArgs) => {
   const url = new URL(request.url)
   const query = new URLSearchParams(url.search)
+  const searchItemKeyword = query?.get('searchItemKeyword') || ''
+  const pageNum = Number(query?.get('page'))
 
   const params = {
-    search_keyword: query?.get('searchItemKeyword') || '',
+    search_keyword: searchItemKeyword,
     sale: true,
     world: true,
-    page: 1,
-    size: 20,
+    page: pageNum,
+    size: 30,
   }
   const { data } = await http.get('/market/items/search', { params })
   if (data) {
@@ -45,6 +48,12 @@ const ItemAuctionList = () => {
   const { itemList, pageInfo } = useLoaderData<typeof loader>()
   const [keyword, setKeyword] = useState<string | null>()
   const [params, setParams] = useSearchParams()
+  const [pagination, setPagination] = useState<IPagination>({
+    pageIndex: 0,
+    pageSize: 30,
+  })
+
+  const submit = useSubmit()
 
   useEffect(() => {
     if (params.size > 0) {
@@ -65,10 +74,22 @@ const ItemAuctionList = () => {
       <input
         name='searchItemKeyword'
         value={keyword || ''}
-        onChange={(e) => setKeyword(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setKeyword(e.target.value)
+        }
       />
       <Button type='submit'>검색</Button>
-      <CoItemDataGrid data={itemList} pageInfo={pageInfo} />
+      <CoItemDataGrid
+        data={itemList}
+        pageInfo={pageInfo}
+        pageClickEvent={(data: IPagination) => {
+          setPagination(data)
+          setTimeout(() => {
+            //* pageIndex가 0부터 시작하므로 1을 더한다. (표기는 1부터)
+            submit({ page: data?.pageIndex + 1 })
+          }, 100)
+        }}
+      />
     </Form>
   )
 }
