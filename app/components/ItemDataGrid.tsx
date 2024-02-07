@@ -11,7 +11,7 @@ const ItemDataGrid = (props: any) => {
   const { data, pageInfo, pageClickEvent } = props
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 30,
+    pageSize: 20,
   })
 
   const columns = useMemo<MRT_ColumnDef<any>[]>(

@@ -9,7 +9,15 @@ import {
 import { CoItemDataGrid } from '@/components'
 import { IPagination } from '@/interface'
 import { useEffect, useState } from 'react'
-import { Button } from '@mui/material'
+import {
+  Button,
+  IconButton,
+  InputBase,
+  Paper,
+  TextField,
+  Divider,
+} from '@mui/material'
+import { Menu, Search, Directions } from '@mui/icons-material'
 
 export const meta: MetaFunction = () => {
   return [
@@ -48,9 +56,9 @@ const ItemAuctionList = () => {
   const { itemList, pageInfo } = useLoaderData<typeof loader>()
   const [keyword, setKeyword] = useState<string | null>()
   const [params, setParams] = useSearchParams()
-  const [pagination, setPagination] = useState<IPagination>({
+  const [_, setPagination] = useState<IPagination>({
     pageIndex: 0,
-    pageSize: 30,
+    pageSize: 20,
   })
 
   const submit = useSubmit()
@@ -61,24 +69,27 @@ const ItemAuctionList = () => {
     }
   }, [params])
 
-  useEffect(() => {
-    //* 검색키워드가없을때, 파라메터를 삭제하고 전체조회
-    if (keyword === '') {
-      params.delete('searchItemKeyword')
-      setParams(params)
-    }
-  }, [keyword])
-
   return (
     <Form>
-      <input
-        name='searchItemKeyword'
-        value={keyword || ''}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setKeyword(e.target.value)
-        }
-      />
-      <Button type='submit'>검색</Button>
+      <Paper
+        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', mb: 2 }}
+      >
+        <InputBase
+          name='searchItemKeyword'
+          placeholder=' 아이템명 검색'
+          autoFocus
+          fullWidth
+          value={keyword || ''}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setKeyword(e.target.value)
+          }
+        />
+        <Divider sx={{ height: 28, m: 0.5 }} orientation='vertical' />
+        <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
+          <Search />
+        </IconButton>
+      </Paper>
+
       <CoItemDataGrid
         data={itemList}
         pageInfo={pageInfo}
@@ -86,7 +97,11 @@ const ItemAuctionList = () => {
           setPagination(data)
           setTimeout(() => {
             //* pageIndex가 0부터 시작하므로 1을 더한다. (표기는 1부터)
-            submit({ page: data?.pageIndex + 1 })
+            const formData = {
+              page: data?.pageIndex + 1,
+              searchItemKeyword: keyword || '',
+            }
+            submit(formData)
           }, 100)
         }}
       />

@@ -9,8 +9,8 @@ interface IItemNameProps {
   itemImage: string
   /** 아이템명 */
   itemName: string
-  /** 4: 영웅 | 5: 전설 | 6: 신화 */
-  itemGrade: number | 4 | 5 | 6
+  /** 2:고급 | 3: 희귀 | 4: 영웅 | 5: 전설 | 6: 신화 */
+  itemGrade: number | 3 | 4 | 5 | 6
   /** 인챈트 레벨 */
   itemLevel: number
 }
@@ -38,6 +38,8 @@ const ItemName = (props: IItemNameProps) => {
         <span
           className={classNames({
             'pl-10': true,
+            'grade-2': itemGrade === 2,
+            'grade-3': itemGrade === 3,
             'grade-4': itemGrade === 4,
             'grade-5': itemGrade === 5,
             'grade-6': itemGrade === 6,
