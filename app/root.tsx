@@ -115,7 +115,7 @@ const Document = withEmotionCache(
 // https://remix.run/docs/en/main/file-conventions/routes
 export default function App() {
   return (
-    <Document title='Hello, Remix'>
+    <Document title='리니지2M 시세표'>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Container maxWidth='lg'>

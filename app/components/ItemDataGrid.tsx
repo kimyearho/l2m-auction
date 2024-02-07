@@ -80,6 +80,8 @@ const ItemDataGrid = (props: any) => {
     enableDensityToggle: false,
     enableFullScreenToggle: false,
     enableToolbarInternalActions: false,
+    enableStickyHeader: true,
+    enableStickyFooter: true,
     enableTopToolbar: false,
     initialState: {
       density: 'compact',
@@ -97,6 +99,7 @@ const ItemDataGrid = (props: any) => {
       showRowsPerPage: false,
     },
     manualPagination: true,
+    muiTableContainerProps: { sx: { maxHeight: '800px' } },
     onPaginationChange: (updater) => {
       if (typeof updater !== 'function') return
       const newPageInfo = updater(table.getState().pagination)
