@@ -118,7 +118,7 @@ export default function App() {
     <Document title='리니지2M 시세표'>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <Container maxWidth='lg'>
+        <Container maxWidth='xl'>
           <SWRConfig
             value={{
               fetcher: fetcher,

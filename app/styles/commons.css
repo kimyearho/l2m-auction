@@ -1,3 +1,11 @@
 .theme-dark {
  background-color: black;
 }
+
+.pl-10 {
+ padding-left: 10px;
+}
+
+.pl-5 {
+ padding-left: 5px;
+}

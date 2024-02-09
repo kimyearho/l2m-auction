@@ -37,7 +37,7 @@ const ItemName = (props: IItemNameProps) => {
         />
         <span
           className={classNames({
-            'pl-10': true,
+            'pl-5': true,
             'grade-2': itemGrade === 2,
             'grade-3': itemGrade === 3,
             'grade-4': itemGrade === 4,
@@ -45,7 +45,8 @@ const ItemName = (props: IItemNameProps) => {
             'grade-6': itemGrade === 6,
           })}
         >
-          {itemLevel > 0 ? `+${itemLevel}` : null}&nbsp;{itemName}
+          {itemLevel > 0 ? `+${itemLevel}` : null}
+          {itemName}
         </span>
       </Box>
     </>

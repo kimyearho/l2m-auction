@@ -9,15 +9,8 @@ import {
 import { CoItemDataGrid } from '@/components'
 import { IPagination } from '@/interface'
 import { useEffect, useState } from 'react'
-import {
-  Button,
-  IconButton,
-  InputBase,
-  Paper,
-  TextField,
-  Divider,
-} from '@mui/material'
-import { Menu, Search, Directions } from '@mui/icons-material'
+import { IconButton, InputBase, Paper, Divider } from '@mui/material'
+import { Search } from '@mui/icons-material'
 
 export const meta: MetaFunction = () => {
   return [
