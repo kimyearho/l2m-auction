@@ -11,6 +11,8 @@ import { IPagination } from '@/interface'
 import { useEffect, useState } from 'react'
 import { IconButton, InputBase, Paper, Divider } from '@mui/material'
 import { Search } from '@mui/icons-material'
+import { FilterProviderContext } from '~/context/FilterContext'
+import pkg from 'lodash'
 
 export const meta: MetaFunction = () => {
   return [
@@ -24,6 +26,7 @@ export const loader = async ({ request }: ActionFunctionArgs) => {
   const query = new URLSearchParams(url.search)
   const searchItemKeyword = query?.get('searchItemKeyword') || ''
   const pageNum = Number(query?.get('page'))
+  const grade = query?.get('grade')
 
   const params = {
     search_keyword: searchItemKeyword,
@@ -34,10 +37,22 @@ export const loader = async ({ request }: ActionFunctionArgs) => {
   }
   const { data } = await http.get('/market/items/search', { params })
   if (data) {
-    return json({
-      itemList: data?.contents,
-      pageInfo: data?.pagination,
-    })
+    console.log(pkg.filter(data?.contents, (item) => item.grade === 4))
+
+    if (grade !== '') {
+      return json({
+        itemList: pkg.filter(
+          data?.contents,
+          (item) => item.grade === Number(grade)
+        ),
+        pageInfo: data?.pagination,
+      })
+    } else {
+      return json({
+        itemList: data?.contents,
+        pageInfo: data?.pagination,
+      })
+    }
   } else {
     throw new Response('Oh no! Something went wrong!', {
       status: 500,
@@ -49,18 +64,51 @@ const ItemAuctionList = () => {
   const { itemList, pageInfo } = useLoaderData<typeof loader>()
   const [keyword, setKeyword] = useState<string | null>()
   const [params, setParams] = useSearchParams()
+  const [formData, setFormData] = useState({
+    page: 1,
+    searchItemKeyword: '',
+    grade: '',
+  })
   const [_, setPagination] = useState<IPagination>({
     pageIndex: 0,
     pageSize: 20,
   })
-
   const submit = useSubmit()
+  const { ctxGradeFilter } = FilterProviderContext()
 
   useEffect(() => {
     if (params.size > 0) {
       setKeyword(params.get('searchItemKeyword'))
     }
   }, [params])
+
+  useEffect(() => {
+    setFormData((prevState) => {
+      return {
+        ...prevState,
+        grade: ctxGradeFilter,
+      }
+    })
+  }, [ctxGradeFilter])
+
+  useEffect(() => {
+    if (formData) {
+      console.log('formData', formData)
+      submit(formData)
+    }
+  }, [formData])
+
+  const handlePageClick = (data: IPagination) => {
+    setPagination(data)
+    setFormData((prevState) => {
+      return {
+        ...prevState,
+        page: data?.pageIndex + 1,
+        searchItemKeyword: keyword || '',
+        grade: ctxGradeFilter,
+      }
+    })
+  }
 
   return (
     <Form>
@@ -86,17 +134,7 @@ const ItemAuctionList = () => {
       <CoItemDataGrid
         data={itemList}
         pageInfo={pageInfo}
-        pageClickEvent={(data: IPagination) => {
-          setPagination(data)
-          setTimeout(() => {
-            //* pageIndex가 0부터 시작하므로 1을 더한다. (표기는 1부터)
-            const formData = {
-              page: data?.pageIndex + 1,
-              searchItemKeyword: keyword || '',
-            }
-            submit(formData)
-          }, 100)
-        }}
+        pageClickEvent={handlePageClick}
       />
     </Form>
   )

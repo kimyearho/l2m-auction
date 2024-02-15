@@ -15,6 +15,10 @@ interface IItemNameProps {
   itemLevel: number
 }
 
+interface IItemGrade {
+  itemGrade: IItemNameProps['itemGrade']
+}
+
 const ItemName = (props: IItemNameProps) => {
   const { itemImage, itemLevel, itemName, itemGrade } = props
 
@@ -45,7 +49,7 @@ const ItemName = (props: IItemNameProps) => {
             'grade-6': itemGrade === 6,
           })}
         >
-          {itemLevel > 0 ? `+${itemLevel}` : null}
+          {itemLevel > 0 ? `+${itemLevel} ` : null}
           {itemName}
         </span>
       </Box>
@@ -53,4 +57,28 @@ const ItemName = (props: IItemNameProps) => {
   )
 }
 
-export default ItemName
+const ItemGrade = (props: IItemGrade) => {
+  const { itemGrade } = props
+  return (
+    <>
+      <span
+        className={classNames({
+          'pl-5': true,
+          'grade-2': itemGrade === 2,
+          'grade-3': itemGrade === 3,
+          'grade-4': itemGrade === 4,
+          'grade-5': itemGrade === 5,
+          'grade-6': itemGrade === 6,
+        })}
+      >
+        {itemGrade === 6 && '신화'}
+        {itemGrade === 5 && '전설'}
+        {itemGrade === 4 && '영웅'}
+        {itemGrade === 3 && '희귀'}
+        {itemGrade === 2 && '고급'}
+      </span>
+    </>
+  )
+}
+
+export default Object.assign({}, { ItemName, ItemGrade })

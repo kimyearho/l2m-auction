@@ -3,6 +3,7 @@ import {
   CardContent,
   CardHeader,
   Container,
+  Divider,
   FormControl,
   FormControlLabel,
   Grid,
@@ -11,8 +12,11 @@ import {
 } from '@mui/material'
 import React, { useCallback, useMemo } from 'react'
 import { IItemGrade } from '@/interface'
+import { FilterProviderContext } from '~/context/FilterContext'
 
 const ItemGrade = () => {
+  const { onChangeFilterContext } = FilterProviderContext()
+
   const filterGradeItems = useMemo<IItemGrade[]>(
     () => [
       {
@@ -56,7 +60,7 @@ const ItemGrade = () => {
 
   const onFilterChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(e.target.value)
+      onChangeFilterContext(e.target.value)
     },
     []
   )
@@ -71,10 +75,8 @@ const ItemGrade = () => {
         }}
       >
         <Card>
-          <CardHeader
-            subheader='아이템 등급'
-            sx={{ background: 'rgb(50, 50, 50)', p: '10px' }}
-          />
+          <CardHeader subheader='아이템 등급' sx={{ p: '10px' }} />
+          <Divider />
           <CardContent>
             <FormControl>
               <RadioGroup row defaultValue=''>

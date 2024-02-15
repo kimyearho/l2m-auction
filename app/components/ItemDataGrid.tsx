@@ -4,7 +4,7 @@ import {
   useMaterialReactTable,
   type MRT_ColumnDef,
 } from 'material-react-table'
-import { CoItemName } from '@/components'
+import { CoItem } from '@/components'
 
 const ItemDataGrid = (props: any) => {
   const { data, pageInfo, pageClickEvent } = props
@@ -18,16 +18,23 @@ const ItemDataGrid = (props: any) => {
       {
         accessorFn: (row) => row.item_name,
         header: '아이템명',
-        size: 350,
+        size: 250,
         enableSorting: false,
         Cell: ({ row }) => (
-          <CoItemName
+          <CoItem.ItemName
             itemImage={row.original.image}
             itemName={row.original.item_name}
             itemGrade={row.original.grade}
             itemLevel={row.original.enchant_level}
           />
         ),
+      },
+      {
+        accessorFn: (row) => row.item_name,
+        header: '등급',
+        size: 100,
+        enableSorting: false,
+        Cell: ({ row }) => <CoItem.ItemGrade itemGrade={row.original.grade} />,
       },
       {
         accessorFn: (row) => row.server_name,

@@ -26,10 +26,10 @@ import { ThemeProvider, CssBaseline, createTheme } from '@mui/material'
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
-    background: {
-      default: '#282828',
-    },
+    // mode: 'dark',
+    // background: {
+    //   default: '#282828',
+    // },
   },
 })
 
@@ -92,7 +92,7 @@ const Document = withEmotionCache(
             content='emotion-insertion-point'
           />
         </head>
-        <body className='theme-dark'>
+        <body>
           <ScrollRestoration />
           {/* https://sergiodxa.com/tutorials/use-process-env-client-side-with-remix */}
           <script
